@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Data.SqlTypes;
+using System.Linq.Expressions;
 
 namespace ConsoleApp1;
 
@@ -17,14 +18,14 @@ internal class Program
         var conn = new SQLiteConnection(SqlString);
         CreateTable(conn);
         
-        Console.WriteLine("Main Menu");
+        Console.WriteLine("------------Main Menu------------");
         Console.WriteLine("Select option");
         Console.WriteLine("0. Close Application");
         Console.WriteLine("1. Insert");
         Console.WriteLine("2. Delete");
         Console.WriteLine("3. Update");
         Console.WriteLine("4. View");
-        var optionSelected = Convert.ToInt32(Console.ReadLine());
+        int optionSelected = Convert.ToInt32(Console.ReadLine());
         switch (optionSelected)
         {
             case 0:
@@ -42,12 +43,16 @@ internal class Program
             case 4:
                 ReadData(conn);
                 break;
+            default:
+                Console.WriteLine("Ungültige eingabe!");
+                MainMenu();
+                break;
         }
     }
 
     public static void CreateTable(SQLiteConnection conn)
     {
-        string query = "CREATE TABLE IF NOT EXISTS Habits ( ID INT PRIMARY KEY NOT NULL,Habit TEXT NOT NULL, Date TEXT NOT NULL);";
+        string query = "CREATE TABLE IF NOT EXISTS Habits(ID INTEGER PRIMARY KEY AUTOINCREMENT, Habit TEXT NOT NULL, Date TEXT NOT NULL);";
         conn.Open();
         SQLiteCommand command = new SQLiteCommand(query, conn);
         command.ExecuteNonQuery();
@@ -74,7 +79,7 @@ internal class Program
         var insert = Console.ReadLine();
 
         conn.Open();
-        var sqlCommand = "INSERT INTO Habits(ID, Habit, Date) VALUES(1 , @habit, datetime())";
+        var sqlCommand = "INSERT INTO Habits(ID, Habit, Date) VALUES(1 , @habit, date())";
 
         using (var command = new SQLiteCommand(sqlCommand, conn))
         {
@@ -99,12 +104,13 @@ internal class Program
             {
                 while (rdr.Read())
                 {
-                    Console.WriteLine(rdr["ID"]);
-                    Console.WriteLine(rdr["Habit"]);
-                    Console.WriteLine(rdr["Date"]);
+                    Console.Write("ID: " + rdr["ID"]);
+                    Console.Write(" Habit: " + rdr["Habit"]);
+                    Console.WriteLine(" Date: " + rdr["Date"]);
                 }
             }
         }
+        conn.Close();
         MainMenu();
     }
 }
