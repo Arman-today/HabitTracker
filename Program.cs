@@ -10,7 +10,7 @@ internal class Program
         MainMenu();
     }
 /// <summary>
-/// Main menu with options for different actions
+/// Main menu with options for different action
 /// </summary>
     private static void MainMenu()
     {
