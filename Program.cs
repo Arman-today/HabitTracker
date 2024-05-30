@@ -10,7 +10,7 @@ internal class Program
         MainMenu();
     }
 /// <summary>
-/// Main menu with options for different action
+/// Main menu with options for different actions
 /// </summary>
     private static void MainMenu()
     {
@@ -115,7 +115,7 @@ private static void InsertData(SQLiteConnection conn)
     }
 
     /// <summary>
-    /// Updates an exsisting dataset and returns feedback on action
+    /// Updates an exsisting dataset and returns feedback on actions
     /// </summary>
     /// <param name="conn">SQL Connection</param>
     private static void UpdateData(SQLiteConnection conn)
