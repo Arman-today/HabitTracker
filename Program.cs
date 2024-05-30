@@ -1,8 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Data.SQLite;
-using System.Data.SqlTypes;
-using System.Linq.Expressions;
+﻿using System.Data.SQLite;
 
 namespace ConsoleApp1;
 
@@ -14,9 +10,9 @@ internal class Program
         MainMenu();
     }
 /// <summary>
-/// TODO
+/// Main menu with options for different actions
 /// </summary>
-    public static void MainMenu()
+    private static void MainMenu()
     {
         var conn = new SQLiteConnection(SqlString);
         CreateTable(conn);
@@ -54,10 +50,10 @@ internal class Program
     }
 
     /// <summary>
-    /// TODO
+    /// Creates table if not already exsistent 
     /// </summary>
-    /// <param name="conn"></param>
-    public static void CreateTable(SQLiteConnection conn)
+    /// <param name="conn">SQL Connection</param>
+    private static void CreateTable(SQLiteConnection conn)
     {
         string query = "CREATE TABLE IF NOT EXISTS Habits(ID INTEGER PRIMARY KEY AUTOINCREMENT, Habit TEXT NOT NULL, Date TEXT NOT NULL, Time TEXT NOT NULL);";
         conn.Open();
@@ -66,10 +62,10 @@ internal class Program
         conn.Close();
     }
 /// <summary>
-/// TODO
+/// Inserts data into the table
 /// </summary>
-/// <param name="conn"></param>
-    public static void InsertData(SQLiteConnection conn)
+/// <param name="conn">SQL Connection</param>
+private static void InsertData(SQLiteConnection conn)
     {
         Console.WriteLine("What habit should be added");
         var insert = Console.ReadLine();
@@ -85,10 +81,10 @@ internal class Program
     }
 
     /// <summary>
-    /// TODO
+    /// Deletes a dataset and returns feedback on action
     /// </summary>
-    /// <param name="conn"></param>
-    public static void DeleteData(SQLiteConnection conn)
+    /// <param name="conn">SQL Connection</param>
+    private static void DeleteData(SQLiteConnection conn)
     {
         Console.WriteLine("Please specify the ID of the dataset to deleted");
         var datasetId = Convert.ToInt32(Console.ReadLine());
@@ -119,10 +115,10 @@ internal class Program
     }
 
     /// <summary>
-    /// TODO
+    /// Updates an exsisting dataset and returns feedback on action
     /// </summary>
-    /// <param name="conn"></param>
-    public static void UpdateData(SQLiteConnection conn)
+    /// <param name="conn">SQL Connection</param>
+    private static void UpdateData(SQLiteConnection conn)
     {
         Console.WriteLine("Please specify the ID of the dataset to update");
         var datasetId = Convert.ToInt32(Console.ReadLine());
@@ -156,10 +152,10 @@ internal class Program
     }
 
     /// <summary>
-    /// TODO
+    /// Able to read data from db, different options
     /// </summary>
-    /// <param name="conn"></param>
-    public static void ReadData(SQLiteConnection conn)
+    /// <param name="conn">SQL Connection</param>
+    private static void ReadData(SQLiteConnection conn)
     {
         var sqlCommand = String.Empty;
         Console.WriteLine("How should the Data be displayed?");
@@ -225,9 +221,9 @@ internal class Program
         MenuAfterOperation();
     }
 /// <summary>
-/// TODO
+/// Menu that is shows after a method like ReadData() is done 
 /// </summary>
-    public static void MenuAfterOperation()
+private static void MenuAfterOperation()
     {
         Console.WriteLine("0. Back to Main Menu");
         Console.WriteLine("1. Close Application");
